@@ -33,5 +33,26 @@
   "devDependencies": {
     "@ionic/app-scripts": "1.0.0",
     "typescript": "2.0.9"
-  }
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-inappbrowser",
+    {
+      "locator": "https://github.com/driftyco/cordova-plugin-wkwebview-engine.git",
+      "id": "cordova-plugin-wkwebview-engine"
+    },
+    "ionic-plugin-keyboard",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-console",
+    "cordova-plugin-statusbar",
+    "cordova-plugin-device",
+    "cordova-plugin-crosswalk-webview",
+    "cordova-plugin-splashscreen"
+  ],
+  "cordovaPlatforms": [
+    {
+      "platform": "android",
+      "version": "",
+      "locator": "android"
+    }
+  ]
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Geolocation } from 'ionic-native';
+import { LocationAccuracy } from 'ionic-native';
 
 /*
   Generated class for the Setting page.
@@ -15,6 +17,8 @@ export class SettingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
+  
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingPage');
   }

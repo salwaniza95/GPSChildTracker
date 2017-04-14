@@ -1,26 +1,22 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Geolocation } from 'ionic-native';
-import { LocationAccuracy } from 'ionic-native';
 
 /*
-  Generated class for the Setting page.
+  Generated class for the Home page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-setting',
-  templateUrl: 'setting.html'
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
-export class SettingPage {
+export class HomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  
-  
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingPage');
+    console.log('ionViewDidLoad HomePage');
   }
 
 }

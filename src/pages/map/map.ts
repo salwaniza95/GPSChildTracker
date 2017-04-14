@@ -3,6 +3,8 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import {ConferenceData} from '../../providers/conference-data';
 
 import {Platform} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
+import {Geolocation} from 'ionic-native';
 
 declare var google:any;
 
@@ -13,44 +15,86 @@ declare var google:any;
 export class MapPage {
 
   @ViewChild('mapCanvas') mapElement:ElementRef;
-  mapCanvas:any;
+  map:any;
+
 
   constructor(public confData:ConferenceData, public platform:Platform) {
   }
 
   ionViewDidLoad() {
 
-    this.confData.getMap().subscribe((mapData:any) => {
-      let mapEle = this.mapElement.nativeElement;
 
-      let map = new google.maps.Map(mapEle, {
-        center: mapData.find((d:any) => d.center),
-        zoom: 16
-      });
+    Geolocation.getCurrentPosition().then((position) => {
+        // alert("Lat: " + position.coords.latitude + "Lng: " + position.coords.longitude);
+        // let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        //
+        // let mapOptions =
+        // {
+        //   center: latLng,
+        //   zoom: 15,
+        //   mapTypeId: google.maps.MapTypeId.ROADMAP
+        // };
+        //
+        // this.mapCanvas = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-      mapData.forEach((markerData:any) => {
+        let mapEle = this.mapElement.nativeElement;
+        let latLng = new google.maps.LatLng(position.coords.latitude.toString(), position.coords.longitude.toString());
+
+        let map = new google.maps.Map(mapEle, {
+          center: latLng,
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
         let infoWindow = new google.maps.InfoWindow({
-          content: `<h5>${markerData.name}</h5>`
+          content: `<h5>You are here!</h5>`
         });
 
         let marker = new google.maps.Marker({
-          position: markerData,
+          position: latLng,
           map: map,
-          title: markerData.name
+          title: "Nama"
         });
 
         marker.addListener('click', () => {
           infoWindow.open(map, marker);
         });
+
+        google.maps.event.addListenerOnce(map, 'idle', () => {
+          mapEle.classList.add('show-map');
+        });
+
+      },
+      (err) => {
+        console.log(err);
       });
 
-      google.maps.event.addListenerOnce(map, 'idle', () => {
-        mapEle.classList.add('show-map');
+  }
+/*
+  addMarker() {
+
+    let marker = new google.maps.Marker(
+      {
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: this.map.getCenter()
       });
 
-    });
+    let content = "<h4>Information!</h4>";
 
+    this.addInfoWindow(marker, content);
 
   }
 
+  addInfoWindow(marker:any, content:any) {
+
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+
+  }*/
 }

@@ -1,100 +1,53 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
-
-import {ConferenceData} from '../../providers/conference-data';
-
-import {Platform} from 'ionic-angular';
+import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {Geolocation} from 'ionic-native';
+import {LocationAccuracy} from 'ionic-native';
+import {SMS} from 'ionic-native';
+import {GlobalService} from '../../providers/global-service'
+/*
+ Generated class for the Track page.
 
-declare var google:any;
-
+ See http://ionicframework.com/docs/v2/components/#navigation for more info on
+ Ionic pages and navigation.
+ */
 @Component({
   selector: 'page-track',
   templateUrl: 'track.html'
 })
 export class TrackPage {
 
-  @ViewChild('mapCanvas') mapElement:ElementRef;
-  map:any;
-
-
-  constructor(public confData:ConferenceData, public platform:Platform) {
+  constructor(public navCtrl:NavController, public navParams:NavParams, public globalService:GlobalService) {
   }
 
   ionViewDidLoad() {
-
-
-    Geolocation.getCurrentPosition().then((position) => {
-        // alert("Lat: " + position.coords.latitude + "Lng: " + position.coords.longitude);
-        // let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        //
-        // let mapOptions =
-        // {
-        //   center: latLng,
-        //   zoom: 15,
-        //   mapTypeId: google.maps.MapTypeId.ROADMAP
-        // };
-        //
-        // this.mapCanvas = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-        let mapEle = this.mapElement.nativeElement;
-        let latLng = new google.maps.LatLng(position.coords.latitude.toString(), position.coords.longitude.toString());
-
-        let map = new google.maps.Map(mapEle, {
-          center: latLng,
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        let infoWindow = new google.maps.InfoWindow({
-          content: `<h5>wawa ada kat sini.. culik dia cpttt..!!</h5>`
-        });
-
-        let marker = new google.maps.Marker({
-          position: latLng,
-          map: map,
-          title: "Nama"
-        });
-
-        marker.addListener('click', () => {
-          infoWindow.open(map, marker);
-        });
-
-        google.maps.event.addListenerOnce(map, 'idle', () => {
-          mapEle.classList.add('show-map');
-        });
-
-      },
-      (err) => {
-        console.log(err);
-      });
-
-  }
-/*
-  addMarker() {
-
-    let marker = new google.maps.Marker(
-      {
-        map: this.map,
-        animation: google.maps.Animation.DROP,
-        position: this.map.getCenter()
-      });
-
-    let content = "<h4>Information!</h4>";
-
-    this.addInfoWindow(marker, content);
-
+    console.log('ionViewDidLoad SettingPage');
   }
 
-  addInfoWindow(marker:any, content:any) {
+  sendSMS() {
+    var options = {
+      replaceLineBreaks: false,
+      android: {
+        intent: 'INTENT'
+      }
+    };
 
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
+    SMS.send('0149823321', 'on', options)
+      .then(()=> {
+        alert("success");
+      }, ()=> {
+        alert("failed");
+      });
+  }
 
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
+  receiveSMS() {
 
-  }*/
+    var latitude = "1.848371";
+    var longitude = "103.075292";
+    alert(latitude);
+    this.globalService.sendLocation(latitude, longitude)
+      .subscribe((responseData:any)=> {
+
+      });
+  }
+
 }

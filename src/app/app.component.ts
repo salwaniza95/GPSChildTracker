@@ -15,7 +15,6 @@ import {SchedulePage} from '../pages/schedule/schedule';
 import {SpeakerListPage} from '../pages/speaker-list/speaker-list';
 import {SupportPage} from '../pages/support/support';
 import {TrackPage} from '../pages/track/track';
-import {SettingPage} from '../pages/setting/setting';
 import {ProfilePage} from '../pages/profile/profile';
 
 import {ConferenceData} from '../providers/conference-data';
@@ -44,16 +43,16 @@ export class ConferenceApp {
   // the login page disables the left menu
   appPages:PageInterface[] = [
 
-    {title: 'Schedule', component: TabsPage, tabComponent: SchedulePage, icon: 'calendar'},
-    {title: 'Speakers', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts'},
-    // { title: 'Map', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'map' },
-    {title: 'Track', component: TabsPage, tabComponent: TrackPage, index: 2, icon: 'pin'},
-    {title: 'About', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle'},
+    //{title: 'Schedule', component: TabsPage, tabComponent: SchedulePage, icon: 'calendar'},
+    //{title: 'Speakers', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts'},
+    { title: 'Map', component: TabsPage, tabComponent: MapPage, icon: 'map' },
+    {title: 'Track', component: TabsPage, tabComponent: TrackPage, index: 1, icon: 'pin'},
+    {title: 'About', component: TabsPage, tabComponent: AboutPage, index: 2, icon: 'information-circle'},
   ];
   loggedInPages:PageInterface[] = [
     {title: 'Account', component: AccountPage, icon: 'person'},
     {title: 'Support', component: SupportPage, icon: 'help'},
-    {title: 'Setting', component: SettingPage, icon: 'settings'},
+    //{title: 'Map', component: MapPage, icon: 'map'},
     {title: 'Profile', component: ProfilePage, icon: 'contact'},
     {title: 'Logout', component: TabsPage, icon: 'log-out', logsOut: true}
   ];

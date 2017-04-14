@@ -15,23 +15,24 @@
 
 <ion-content class="outer-content">
   <div padding-top text-center><h1>Update Your Child's profile</h1><br>
-    <img src="http://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
-    <h2>{{username}}</h2>
-
+  <br>
     <ion-item>
-      <ion-label>Child's Name</ion-label>
+      <ion-label>Child's First Name</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
-
+    <br><ion-item>
+      <ion-label>Child's Last Name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
     <ion-list>
-    <ion-item>
+    <br><ion-item>
       <ion-label>Gender</ion-label>
       <ion-select [(ngModel)]="gender" multiple="true" cancelText="Cancel" okText="Okay">
         <ion-option value="female" selected="true">Female</ion-option>
         <ion-option value="male">Male</ion-option>
       </ion-select>
       </ion-item>
-      <ion-item>
+      <br><ion-item>
         <ion-label>Age</ion-label>
         <ion-select [(ngModel)]="age" multiple="true" cancelText="Cancel" okText="Okay">
           <ion-option value="five" selected="true">5</ion-option>
@@ -44,6 +45,10 @@
           <ion-option value="twelve">12</ion-option>
         </ion-select>
       </ion-item>
+      <br><ion-item>
+       <ion-label>Birthday</ion-label>
+       <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="myDate"></ion-datetime>
+    </ion-item>
     </ion-list>
     <button ion-button outline (click)='alert()'>Update</button>
   </div>

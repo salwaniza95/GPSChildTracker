@@ -40,10 +40,9 @@ export class TrackPage {
   }
 
   receiveSMS() {
-
     var latitude = "1.848371";
     var longitude = "103.075292";
-    alert(latitude);
+
     this.globalService.sendLocation(latitude, longitude)
       .subscribe((responseData:any)=> {
 

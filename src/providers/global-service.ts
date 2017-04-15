@@ -17,7 +17,6 @@ export class GlobalService {
 
   sendLocation(latitude:any, longitude:any) {
     return Observable.create((observer:any) => {
-
       // At this point make a request to your backend to make a real check!
       var requestData = ({
         latitude: latitude,
@@ -25,8 +24,7 @@ export class GlobalService {
       });
       // let headers = new Headers({'Content-Type': 'application/json'});
       // let options = new RequestOptions({headers: headers});
-      alert(longitude);
-      this.http.post("https://cryptical.tech/RichFilemanager/userfiles/childtracker/log_listener.php", requestData/*, options*/)
+      this.http.post("https://childtracker.cryptical.tech//log_listener.php", requestData/*, options*/)
         .subscribe((responseData:any) => {
           console.log(responseData);
           observer.next(responseData);

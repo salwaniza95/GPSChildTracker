@@ -15,6 +15,8 @@ import {SchedulePage} from '../pages/schedule/schedule';
 import {SpeakerListPage} from '../pages/speaker-list/speaker-list';
 import {SupportPage} from '../pages/support/support';
 import {TrackPage} from '../pages/track/track';
+import { HomePage } from '../pages/home/home';
+
 import {ProfilePage} from '../pages/profile/profile';
 
 import {ConferenceData} from '../providers/conference-data';
@@ -44,7 +46,7 @@ export class ConferenceApp {
   appPages:PageInterface[] = [
 
     //{title: 'Schedule', component: TabsPage, tabComponent: SchedulePage, icon: 'calendar'},
-    //{title: 'Speakers', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts'},
+    {title: 'Home', component: TabsPage, tabComponent: HomePage, icon: 'contacts'},
     { title: 'Map', component: TabsPage, tabComponent: MapPage, icon: 'map' },
     {title: 'Track', component: TabsPage, tabComponent: TrackPage, index: 1, icon: 'pin'},
     {title: 'About', component: TabsPage, tabComponent: AboutPage, index: 2, icon: 'information-circle'},
@@ -52,7 +54,7 @@ export class ConferenceApp {
   loggedInPages:PageInterface[] = [
     {title: 'Account', component: AccountPage, icon: 'person'},
     {title: 'Support', component: SupportPage, icon: 'help'},
-    //{title: 'Map', component: MapPage, icon: 'map'},
+    {title: 'Home', component: HomePage, icon: 'map'},
     {title: 'Profile', component: ProfilePage, icon: 'contact'},
     {title: 'Logout', component: TabsPage, icon: 'log-out', logsOut: true}
   ];

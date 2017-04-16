@@ -24,7 +24,7 @@ export class GlobalService {
       });
       // let headers = new Headers({'Content-Type': 'application/json'});
       // let options = new RequestOptions({headers: headers});
-      this.http.post("https://childtracker.cryptical.tech//log_listener.php", requestData/*, options*/)
+      this.http.post("https://childtracker.cryptical.tech/log_listener.php", requestData/*, options*/)
         .subscribe((responseData:any) => {
           console.log(responseData);
           observer.next(responseData);

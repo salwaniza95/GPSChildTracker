@@ -40,13 +40,15 @@ export class TrackPage {
   }
 
   receiveSMS() {
+    alert("ni dah tak pakai, Sape suh tekan, .. hahahaha");
+    /*var address = "+601136077678";
     var latitude = "1.848371";
     var longitude = "103.075292";
 
-    this.globalService.sendLocation(latitude, longitude)
+    this.globalService.sendLocation(address, latitude, longitude)
       .subscribe((responseData:any)=> {
 
-      });
+      });*/
   }
 
 }

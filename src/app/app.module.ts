@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { ConferenceApp } from './app.component';
 
+import {HomePage} from "../pages/home/home";
 import { AboutPage } from '../pages/about/about';
 import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
@@ -25,11 +26,12 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { GlobalService } from '../providers/global-service';
-
+import {ModalPage} from "../pages/modal/modal";
 
 @NgModule({
   declarations: [
     ConferenceApp,
+    HomePage,
     AboutPage,
     AccountPage,
     LoginPage,
@@ -45,7 +47,8 @@ import { GlobalService } from '../providers/global-service';
     TutorialPage,
     SupportPage,
     TrackPage,
-    ProfilePage
+    ProfilePage,
+    ModalPage,
   ],
   imports: [
     IonicModule.forRoot(ConferenceApp)
@@ -53,6 +56,7 @@ import { GlobalService } from '../providers/global-service';
   bootstrap: [IonicApp],
   entryComponents: [
     ConferenceApp,
+    HomePage,
     AboutPage,
     AccountPage,
     LoginPage,
@@ -68,7 +72,8 @@ import { GlobalService } from '../providers/global-service';
     TutorialPage,
     SupportPage,
     TrackPage,
-    ProfilePage
+    ProfilePage,
+    ModalPage,
   ],
   providers: [ConferenceData, UserData, GlobalService, Storage]
 })

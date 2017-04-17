@@ -1,8 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
 import {Geolocation} from 'ionic-native';
-import {Events, MenuController, Nav, Platform} from 'ionic-angular';
+import {Events, MenuController, Nav, Platform, AlertController} from 'ionic-angular';
+
 import {Splashscreen} from 'ionic-native';
 import {Storage} from '@ionic/storage';
+
+import {Observable} from "rxjs/Rx";
 
 import {AboutPage} from '../pages/about/about';
 import {AccountPage} from '../pages/account/account';
@@ -20,6 +23,8 @@ import {ProfilePage} from '../pages/profile/profile';
 import {ConferenceData} from '../providers/conference-data';
 import {UserData} from '../providers/user-data';
 import {LocationAccuracy} from 'ionic-native';
+import {HomePage} from "../pages/home/home";
+import {GlobalService} from "../providers/global-service";
 
 export interface PageInterface {
   title:string;
@@ -29,6 +34,8 @@ export interface PageInterface {
   index?:number;
   tabComponent?:any;
 }
+
+declare var window:any;
 
 @Component({
   templateUrl: 'app.template.html'
@@ -45,7 +52,7 @@ export class ConferenceApp {
 
     //{title: 'Schedule', component: TabsPage, tabComponent: SchedulePage, icon: 'calendar'},
     //{title: 'Speakers', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts'},
-    { title: 'Map', component: TabsPage, tabComponent: MapPage, icon: 'map' },
+    {title: 'Map', component: TabsPage, tabComponent: MapPage, index: 0, icon: 'map'},
     {title: 'Track', component: TabsPage, tabComponent: TrackPage, index: 1, icon: 'pin'},
     {title: 'About', component: TabsPage, tabComponent: AboutPage, index: 2, icon: 'information-circle'},
   ];
@@ -63,12 +70,10 @@ export class ConferenceApp {
   ];
   rootPage:any;
 
-  constructor(public events:Events,
-              public userData:UserData,
-              public menu:MenuController,
-              public platform:Platform,
-              public confData:ConferenceData,
-              public storage:Storage) {
+  constructor(public events:Events, public userData:UserData,
+              public menu:MenuController, public platform:Platform,
+              public confData:ConferenceData, public storage:Storage,
+              public globalService:GlobalService, public alertCtrl:AlertController) {
 
     // Check if the user has already seen the tutorial
     this.storage.get('hasSeenTutorial')
@@ -140,6 +145,10 @@ export class ConferenceApp {
     this.platform.ready().then(() => {
       Splashscreen.hide();
       this.requestLocationAccuracy();
+      this.requestReadSmsPermission().subscribe((data:boolean)=> {
+        if (data)
+          this.initSmsApp();
+      });
     });
   }
 
@@ -154,6 +163,78 @@ export class ConferenceApp {
         );
       }
 
+    });
+  }
+
+  requestReadSmsPermission() {
+    return Observable.create((observer:any)=> {
+
+      var permissions = window.cordova.plugins.permissions;
+      permissions.hasPermission(permissions.READ_SMS, (status:any)=> {
+        if (!status.hasPermission) {
+          var errorCallback = function () {
+            alert('READ_SMS permission is not turned on');
+            observer.next(false);
+            observer.complete();
+          };
+
+          permissions.requestPermission(permissions.READ_SMS, (status:any)=> {
+            if (!status.hasPermission) {
+              errorCallback();
+            } else {
+              observer.next(true);
+              observer.complete();
+            }
+          }, errorCallback);
+        }
+      }, null);
+
+    });
+  }
+
+  initSmsApp() {
+    if (!window.SMS) {
+      alert('SMS plugin not ready');
+      return;
+    }
+
+    if (window.SMS) window.SMS.startWatch(()=> {
+      window.document.addEventListener('onSMSArrive', (e:any)=> {
+        var sms = e.data;
+        // sms.address
+        // sms.body
+        // alert(JSON.stringify(sms));
+        var location = sms.body.split(",");
+
+        var latitude = location[0].trim();
+        var longitude = location[1].trim();
+
+        this.globalService.sendLocation(sms.address, latitude, longitude)
+          .subscribe((responseData:any)=> {
+            responseData = responseData.json();
+            // if (this.globalService.inArray(responseData.address, ["+60149823321", "+60195656819", "+601136077678"])) {
+              let confirmAlert = this.alertCtrl.create({
+                title: "New Location Received",
+                message: "Latitude: " + responseData.latitude + "\nLongitude: " + responseData.longitude,
+                subTitle: "From: " + responseData.address,
+                buttons: [{
+                  text: 'Ignore',
+                  role: 'cancel'
+                }, {
+                  text: 'View',
+                  handler: () => {
+                    //TODO: Your logic here
+                    this.nav.setRoot(TabsPage, {position: responseData});
+                  }
+                }]
+              });
+              confirmAlert.present();
+            // }
+          });
+      });
+
+    }, (error:any)=> {
+      alert('failed to start watching');
     });
   }
 

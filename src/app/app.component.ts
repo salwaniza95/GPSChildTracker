@@ -215,7 +215,7 @@ export class ConferenceApp {
             // if (this.globalService.inArray(responseData.address, ["+60149823321", "+60195656819", "+601136077678"])) {
               let confirmAlert = this.alertCtrl.create({
                 title: "New Location Received",
-                message: "Latitude: " + responseData.latitude + "<br/>Longitude: " + responseData.longitude,
+                message: "Latitude: " + responseData.coords.latitude + "<br/>Longitude: " + responseData.coords.longitude,
                 subTitle: "From: " + responseData.address,
                 buttons: [{
                   text: 'Ignore',
@@ -224,7 +224,8 @@ export class ConferenceApp {
                   text: 'View',
                   handler: () => {
                     //TODO: Your logic here
-                    this.nav.setRoot(TabsPage, {position: responseData});
+                    this.storage.set('childPosition', responseData);
+                    this.nav.setRoot(TabsPage);
                   }
                 }]
               });

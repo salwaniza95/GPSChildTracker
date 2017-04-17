@@ -1,7 +1,8 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
 
 import {ConferenceData} from '../../providers/conference-data';
-
+import {GlobalService} from '../../providers/global-service';
+import {Storage} from '@ionic/storage';
 import {Platform} from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
 import {Geolocation} from 'ionic-native';
@@ -29,14 +30,17 @@ export class MapPage {
     coords: {latitude: 0, longitude: 0},
   };
 
-  constructor(public navParams:NavParams, public confData:ConferenceData, public platform:Platform) {
-    if (navParams.data.position) {
-      this.childPosition = navParams.data.position;
-      alert(this.childPosition);
-      this.mapping(this.childPosition);
-    } else {
+  constructor(public globalService:GlobalService, public navParams:NavParams, public storage:Storage, public confData:ConferenceData, public platform:Platform) {
+    this.storage.get('childPosition').then((data:any)=> {
+      if (data) {
+        this.childPosition = data;
+        this.mapping(this.childPosition);
+        this.globalService.toast(this.childPosition.coords.latitude + "," + this.childPosition.coords.longitude).present();
+      }
+    }, (rejected:any)=> {
       this.currentParentPosition();
-    }
+    });
+
   }
 
   ionViewDidLoad() {

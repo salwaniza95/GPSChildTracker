@@ -22,7 +22,7 @@ export class TabsPage {
 
   constructor(navParams:NavParams) {
     this.mySelectedIndex = navParams.data.tabIndex || 0;
-    this.position = navParams.data.position;
+    // this.position = navParams.data.position;
   }
 
 }

@@ -215,7 +215,7 @@ export class ConferenceApp {
             // if (this.globalService.inArray(responseData.address, ["+60149823321", "+60195656819", "+601136077678"])) {
               let confirmAlert = this.alertCtrl.create({
                 title: "New Location Received",
-                message: "Latitude: " + responseData.latitude + "\nLongitude: " + responseData.longitude,
+                message: "Latitude: " + responseData.latitude + "<br/>Longitude: " + responseData.longitude,
                 subTitle: "From: " + responseData.address,
                 buttons: [{
                   text: 'Ignore',

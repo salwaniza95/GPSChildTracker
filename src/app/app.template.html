@@ -3,17 +3,15 @@
 <ion-menu id="loggedOutMenu" [content]="content">
 
   <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
+    <ion-toolbar color="lighter">
+      <ion-title>GPS Child Tracker</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content class="outer-content">
 
-    <ion-list>
-      <ion-list-header>
-        Navigate
-      </ion-list-header>
+    <ion-list color="lighter">
+      <ion-list-header color="lighter">Navigate</ion-list-header>
       <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon" [color]="isActive(p)"></ion-icon>
         {{p.title}}
@@ -21,7 +19,7 @@
     </ion-list>
 
     <ion-list>
-      <ion-list-header>
+      <ion-list-header color="lighter" >
         Account
       </ion-list-header>
       <button ion-item menuClose *ngFor="let p of loggedOutPages" (click)="openPage(p)">
@@ -31,12 +29,12 @@
     </ion-list>
 
     <ion-list>
-      <ion-list-header>
-        Tutorial
+      <ion-list-header color="lighter" >
+        More
       </ion-list-header>
       <button ion-item menuClose (click)="openTutorial()">
-        <ion-icon item-left name="hammer"></ion-icon>
-        Show Tutorial
+        <ion-icon item-left name="home"></ion-icon>
+        Home
       </button>
     </ion-list>
   </ion-content>
@@ -47,7 +45,7 @@
 <ion-menu id="loggedInMenu" [content]="content">
 
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="lighter">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -76,10 +74,10 @@
 
     <ion-list>
       <ion-list-header>
-        Tutorial
+        Home
       </ion-list-header>
       <button ion-item menuClose (click)="openTutorial()">
-        <ion-icon item-left name="hammer"></ion-icon>
+        <ion-icon item-left name="home"></ion-icon>
         Show Tutorial
       </button>
     </ion-list>

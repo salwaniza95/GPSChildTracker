@@ -5,51 +5,61 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>Update Profile</ion-title>
-    </ion-navbar>
+  <ion-navbar color="lighter">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Update Profile</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content class="outer-content">
-  <div padding-top text-center><h1>Update Your Child's profile</h1><br>
-  <br>
-    <ion-item>
-      <ion-label>Child's First Name</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <br><ion-item>
-      <ion-label>Child's Last Name</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-list>
-    <br><ion-item>
-      <ion-label>Gender</ion-label>
-      <ion-select [(ngModel)]="gender" multiple="true" cancelText="Cancel" okText="Okay">
-        <ion-option value="female" selected="true">Female</ion-option>
-        <ion-option value="male">Male</ion-option>
-      </ion-select>
+  <form #updateForm="ngForm" novalidate>
+    <ion-list no-lines>
+      <ion-item>
+        <ion-label floating color="primary">Child's First Name:</ion-label>
+        <ion-input [(ngModel)]="profile.firstname" name="firstname" type="text" #firstname="ngModel" spellcheck="false"
+                   autocapitalize="off"
+                   required>
+        </ion-input>
       </ion-item>
-      <br><ion-item>
-        <ion-label>Age</ion-label>
-        <ion-select [(ngModel)]="age" multiple="true" cancelText="Cancel" okText="Okay">
-          <ion-option value="five" selected="true">5</ion-option>
-          <ion-option value="six">6</ion-option>
-          <ion-option value="seven" selected="true">7</ion-option>
-          <ion-option value="eight">8</ion-option>
-          <ion-option value="nine" selected="true">9</ion-option>
-          <ion-option value="ten">10</ion-option>
-          <ion-option value="eleven" selected="true">11</ion-option>
-          <ion-option value="twelve">12</ion-option>
+
+      <ion-item>
+        <ion-label floating color="primary">Child's Last Name:</ion-label>
+        <ion-input [(ngModel)]="profile.lastname" name="lastname" type="text" #lastname="ngModel" spellcheck="false"
+                   autocapitalize="off"
+                   required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating color="primary">Gender:</ion-label>
+        <ion-select [(ngModel)]="profile.gender" name="gender" type="text" #gender="ngModel" multiple="false"
+                    cancelText="Cancel" okText="Okay">
+          <ion-option value="female" selected="true">Female</ion-option>
+          <ion-option value="male">Male</ion-option>
         </ion-select>
       </ion-item>
-      <br><ion-item>
-       <ion-label>Birthday</ion-label>
-       <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="myDate"></ion-datetime>
-    </ion-item>
+
+      <ion-item>
+        <ion-label floating color="primary">Age:</ion-label>
+        <ion-input [(ngModel)]="profile.age" name="age" type="number" #age="ngModel" spellcheck="false"
+                   autocapitalize="off"
+                   required>
+        </ion-input>
+      </ion-item>
+
+      <!--<ion-item>
+        <ion-label floating color="primary">Birthday:</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="profile.birthday"></ion-datetime>
+      </ion-item>-->
     </ion-list>
-    <button ion-button outline (click)='alert()'>Update</button>
-  </div>
+
+    <ion-row responsive-sm>
+      <ion-col>
+        <button ion-button (click)="onUpdateProfile(updateForm)" type="submit" color="lighter" block>Update</button>
+      </ion-col>
+    </ion-row>
+  </form>
+
 </ion-content>

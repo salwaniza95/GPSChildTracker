@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="lighter">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -15,6 +15,9 @@
 
 
 <ion-content padding-top text-center>
- <button ion-button outline (click)="sendSMS()">Track Your Child</button>
-  <button ion-button outline (click)="receiveSMS()">Receive SMS</button>
+ <h4>Please click the button below to request the location of your children.</h4>
+ <br>
+ <div padding>
+ <button ion-button color="lighter" full (click)="sendSMS()">Track Your Child</button></div>
+  <!-- <button ion-button outline (click)="receiveSMS()">Receive SMS</button>-->
 </ion-content>

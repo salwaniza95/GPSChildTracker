@@ -1,5 +1,5 @@
 <ion-header no-border>
-  <ion-navbar>
+  <ion-navbar color="lighter">
     <ion-buttons end *ngIf="showSkip">
       <button ion-button (click)="startApp()" color="primary">Skip</button>
     </ion-buttons>
@@ -10,7 +10,7 @@
   <ion-slides (ionSlideWillChange)="onSlideChangeStart($event)" pager>
 
     <ion-slide>
-      <img src="assets/img/download.png" class="slide-image"/>
+      <img src="assets/img/appicon.png" class="slide-image"/>
       <h2 class="slide-title">
         Welcome to <b>GPS Child Tracker</b>
       </h2>   
@@ -18,14 +18,14 @@
 
 
     <ion-slide>
-      <img src="assets/img/1.jpg" class="slide-image"/>
+      <img src="assets/img/logo 2.png" class="slide-image"/>
       <h2 class="slide-title" >What is GPS Child Tracker?</h2>
-      <p><b>GPS Child Tracker</b> is an application that enables users to find location of their kids in fastest way</p>
+      <p><b>GPS Child Tracker</b> is a real time tracking application that enables users to find the location of their kids in fastest way</p>
     </ion-slide>
 
 
     <ion-slide>
-      <img src="assets/img/GoogleMaps.jpg" class="slide-image"/>
+      <img src="assets/img/GoogleMaps.png" class="slide-image"/>
       <h2 class="slide-title">Ready to Track?</h2>
       <button ion-button icon-right large clear (click)="startApp()">
         Continue

@@ -19,6 +19,7 @@ import {SpeakerListPage} from '../pages/speaker-list/speaker-list';
 import {SupportPage} from '../pages/support/support';
 import {TrackPage} from '../pages/track/track';
 import {ProfilePage} from '../pages/profile/profile';
+import {GuidelinePage} from '../pages/guideline/guideline';
 
 import {ConferenceData} from '../providers/conference-data';
 import {UserData} from '../providers/user-data';
@@ -52,21 +53,25 @@ export class ConferenceApp {
 
     //{title: 'Schedule', component: TabsPage, tabComponent: SchedulePage, icon: 'calendar'},
     //{title: 'Speakers', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts'},
-    {title: 'Map', component: TabsPage, tabComponent: MapPage, index: 0, icon: 'map'},
+    {title: 'Guideline', component: TabsPage, tabComponent: GuidelinePage, index: 0, icon: 'book'},
     {title: 'Track', component: TabsPage, tabComponent: TrackPage, index: 1, icon: 'pin'},
-    {title: 'About', component: TabsPage, tabComponent: AboutPage, index: 2, icon: 'information-circle'},
+    {title: 'Map', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'map'},
+    
+    //{title: 'About', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle'},
   ];
   loggedInPages:PageInterface[] = [
-    {title: 'Account', component: AccountPage, icon: 'person'},
-    {title: 'Support', component: SupportPage, icon: 'help'},
+    //{title: 'Account', component: AccountPage, icon: 'person'},
+    //{title: 'Support', component: SupportPage, icon: 'help'},
     //{title: 'Map', component: MapPage, icon: 'map'},
     {title: 'Profile', component: ProfilePage, icon: 'contact'},
-    {title: 'Logout', component: TabsPage, icon: 'log-out', logsOut: true}
+    {title: 'Logout', component: TabsPage, icon: 'log-out', logsOut: true},
+    {title: 'About', component: AboutPage, icon: 'information-circle'}
   ];
   loggedOutPages:PageInterface[] = [
     {title: 'Login', component: LoginPage, icon: 'log-in'},
-    {title: 'Support', component: SupportPage, icon: 'help'},
-    {title: 'Signup', component: SignupPage, icon: 'person-add'}
+    //{title: 'Support', component: SupportPage, icon: 'help'},
+    {title: 'Signup', component: SignupPage, icon: 'person-add'},
+    {title: 'About', component: AboutPage, icon: 'information-circle'}
   ];
   rootPage:any;
 
@@ -81,7 +86,7 @@ export class ConferenceApp {
         if (hasSeenTutorial) {
           this.rootPage = TabsPage;
         } else {
-          this.rootPage = TutorialPage;
+          this.rootPage = LoginPage;//TutorialPage;
         }
         this.platformReady();
       });
@@ -199,10 +204,11 @@ export class ConferenceApp {
     }
 
     if (window.SMS) window.SMS.startWatch(()=> {
-      window.document.addEventListener('onSMSArrive', (e:any)=> {
+      window.document.addEventListener('onSMSArrive', (e:any)=> {// receive message location from arduino
+        
         var sms = e.data;
-        // sms.address
-        // sms.body
+        // sms.address // +60165656819
+        // sms.body // 81.0291, 108.233343
         // alert(JSON.stringify(sms));
         var location = sms.body.split(",");
 

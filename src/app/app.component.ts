@@ -56,7 +56,7 @@ export class ConferenceApp {
     {title: 'Guideline', component: TabsPage, tabComponent: GuidelinePage, index: 0, icon: 'book'},
     {title: 'Track', component: TabsPage, tabComponent: TrackPage, index: 1, icon: 'pin'},
     {title: 'Map', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'map'},
-    
+
     //{title: 'About', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle'},
   ];
   loggedInPages:PageInterface[] = [
@@ -205,7 +205,7 @@ export class ConferenceApp {
 
     if (window.SMS) window.SMS.startWatch(()=> {
       window.document.addEventListener('onSMSArrive', (e:any)=> {// receive message location from arduino
-        
+
         var sms = e.data;
         // sms.address // +60165656819
         // sms.body // 81.0291, 108.233343
@@ -219,23 +219,23 @@ export class ConferenceApp {
           .subscribe((responseData:any)=> {
             responseData = responseData.json();
             // if (this.globalService.inArray(responseData.address, ["+60149823321", "+60195656819", "+601136077678"])) {
-              let confirmAlert = this.alertCtrl.create({
-                title: "New Location Received",
-                message: "Latitude: " + responseData.coords.latitude + "<br/>Longitude: " + responseData.coords.longitude,
-                subTitle: "From: " + responseData.address,
-                buttons: [{
-                  text: 'Ignore',
-                  role: 'cancel'
-                }, {
-                  text: 'View',
-                  handler: () => {
-                    //TODO: Your logic here
-                    this.storage.set('childPosition', responseData);
-                    this.nav.setRoot(TabsPage);
-                  }
-                }]
-              });
-              confirmAlert.present();
+            let confirmAlert = this.alertCtrl.create({
+              title: "New Location Received",
+              message: "Latitude: " + responseData.coords.latitude + "<br/>Longitude: " + responseData.coords.longitude,
+              subTitle: "From: " + responseData.address,
+              buttons: [{
+                text: 'Ignore',
+                role: 'cancel'
+              }, {
+                text: 'View',
+                handler: () => {
+                  //TODO: Your logic here
+                  this.storage.set('childPosition', responseData);
+                  this.nav.setRoot(TabsPage, {tabIndex: 2});
+                }
+              }]
+            });
+            confirmAlert.present();
             // }
           });
       });

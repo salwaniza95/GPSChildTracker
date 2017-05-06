@@ -3,7 +3,9 @@ import {NavController, NavParams, Tabs} from 'ionic-angular';
 import {Geolocation} from 'ionic-native';
 import {LocationAccuracy} from 'ionic-native';
 import {SMS} from 'ionic-native';
-import {GlobalService} from '../../providers/global-service'
+import {GlobalService} from '../../providers/global-service';
+import {Storage} from '@ionic/storage';
+
 /*
  Generated class for the Track page.
 
@@ -19,7 +21,7 @@ declare var window:any;
 })
 export class TrackPage {
 
-  constructor(public navCtrl:NavController, public navParams:NavParams, public globalService:GlobalService) {
+  constructor(public navCtrl:NavController, public storage:Storage, public navParams:NavParams, public globalService:GlobalService) {
   }
 
   ionViewDidLoad() {
@@ -42,9 +44,12 @@ export class TrackPage {
      });*/
 
     if (window.SMS) window.SMS.sendSMS("+60149823321", "on", ()=> {
-      alert("Message sent!");
-      var t:Tabs = this.navCtrl.parent;
-      t.select(2);
+      this.storage.set('childPosition', null).then((data:any)=> {
+        alert("Message sent!");
+        var t:Tabs = this.navCtrl.parent;
+        t.select(2);
+      })
+
     }, ()=> {
       alert("failed");
     });

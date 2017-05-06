@@ -16,7 +16,7 @@ import {GlobalService} from '../../providers/global-service'
 })
 export class TrackPage {
 
-  constructor(public navCtrl:NavController, public navParams:NavParams, public globalService:GlobalService, private smsVar: SMS) {
+  constructor(public navCtrl:NavController, public navParams:NavParams, public globalService:GlobalService) {
   }
 
   ionViewDidLoad() {

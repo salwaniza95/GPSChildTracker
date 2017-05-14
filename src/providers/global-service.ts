@@ -97,6 +97,24 @@ export class GlobalService {
     });
   }
 
+  getProfile(parent_id:any){
+    return Observable.create((observer:any) => {
+      var requestData = ({
+        parent_id: parent_id
+      });
+      this.http.post("https://childtracker.cryptical.tech/getprofile.php", requestData)
+        .subscribe((responseData:any) => {
+          console.log(responseData);
+          observer.next(responseData.json());
+          observer.complete();
+        }, (error:any) => {
+          observer.next(error);
+          observer.complete();
+          console.log(error);
+        });
+    });
+  }
+
   updateProfile(profile:any){
     // console.log(profile);
     return Observable.create((observer:any) => {

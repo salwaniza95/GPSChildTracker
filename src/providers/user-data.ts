@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-
+import {Observable} from "rxjs/Rx";
 import {Events} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 
@@ -40,6 +40,19 @@ export class UserData {
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(username);
     this.events.publish('user:signup');
+  };
+
+  setProfile(profile:any) {
+    return Observable.create((observer:any) => {
+        this.storage.set("parent_id", profile.parent_id);
+        this.storage.set("first_name", profile.first_name);
+        this.storage.set("last_name", profile.last_name);
+        this.storage.set("gender", profile.gender);
+        this.storage.set("age", profile.age);
+
+        observer.next(true);
+        observer.complete();
+      });
   };
 
   logout() {

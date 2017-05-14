@@ -22,6 +22,22 @@ export class ProfilePage {
   submitted = false;
 
   constructor(public navCtrl:NavController, public navParams:NavParams, public nav:NavController, public alertCtrl:AlertController, public userData: UserData, public globalService:GlobalService) {
+
+    this.userData.getId().then((parent_id:any)=>{
+      this.globalService.getProfile(parent_id).subscribe((profile:any)=>{
+        this.userData.setProfile(profile).subscribe((valid:any)=>{  
+        });
+
+        this.profile.firstname = profile.first_name;
+        this.profile.lastname = profile.last_name;
+        this.profile.gender = profile.gender;
+        this.profile.age = profile.age;
+      },
+      (error:any)=>{
+
+      });
+    });
+
   }
 
   onUpdateProfile (form: NgForm){

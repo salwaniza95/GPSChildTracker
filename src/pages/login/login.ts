@@ -31,7 +31,7 @@ export class LoginPage {
               alert("Well Done " + data.username + ". You have been log in successfully. Click OK.");
               //this.userData.setId(data.id);
               this.userData.login(data);
-              this.navCtrl.push(GuidelinePage);
+              this.navCtrl.setRoot(GuidelinePage);
             }else
               alert("Error! Please enter again or sign up if new user.");
           },
